@@ -1,0 +1,55 @@
+
+import java.util.*;
+
+public class DnDCharacterCreator 
+{
+
+    public static void main(String[] args) 
+{
+        Scanner input = new Scanner(System.in);
+        
+        // Get basic character info
+        System.out.print("Enter character name: ");
+        String name = input.nextLine();
+
+        System.out.print("Enter character race (e.g., Human, Elf, Dwarf): ");
+        String race = input.nextLine();
+
+        System.out.print("Enter character class (e.g., Fighter, Wizard, Rogue): ");
+        String classType = input.nextLine();
+
+        // Generate ability scores
+        int[] abilityScores = new int[6];
+        String[] abilities = {"Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"};
+
+        System.out.println("\nRolling for ability scores...");
+        for (int i = 0; i < 6; i++) 
+        {
+            abilityScores[i] = rollAbilityScore();
+            System.out.println(abilities[i] + ": " + abilityScores[i]);
+        }
+
+        // Print character sheet
+        System.out.println("\n--- Character Sheet ---");
+        System.out.println("Name: " + name);
+        System.out.println("Race: " + race);
+        System.out.println("Class: " + classType);
+        for (int i = 0; i < 6; i++) {
+            System.out.println(abilities[i] + ": " + abilityScores[i]);
+        }
+
+        input.close();
+    }
+
+    // Roll 4d6 and drop the lowest die
+    public static int rollAbilityScore() 
+    {
+        Random rand = new Random();
+        int[] rolls = new int[4];
+        for (int i = 0; i < 4; i++) {
+            rolls[i] = rand.nextInt(6) + 1;
+        }
+        Arrays.sort(rolls);
+        return rolls[1] + rolls[2] + rolls[3];
+    }
+}
